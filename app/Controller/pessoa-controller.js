@@ -1,4 +1,4 @@
-const pessoaRepository = require('../Repository/pessoa-repository')
+const pessoaRepository = require('../repository/pessoa-repository')
 
 app.get('/pessoa', async(req, res) => {
     let resposta = await pessoaRepository.listAll();
@@ -11,7 +11,13 @@ app.get('/pessoa/:id', async (req, res) => {
 });
 
 app.post('/pessoa', async (req, res) => {
-    let resposta = pessoaRepository.insert();
+
+    const pessoa = {
+        nome: req.body.login,
+        senha: req.body.senha
+    };
+    
+    let resposta = pessoaRepository.insert(pessoa);
     res.json(resposta);
 });
 

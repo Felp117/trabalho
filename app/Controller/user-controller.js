@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const pessoaRepository = require('../Repository/user-repository')
+const pessoaRepository = require('../repository/user-repository')
 
 app.get('/usuario', async(req, res) => {
     let resposta = await pessoaRepository.listAll();

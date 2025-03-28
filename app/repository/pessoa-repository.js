@@ -10,9 +10,11 @@ exports.findById = async (id) => {
     return rows;
 }
 
-exports.insert = async (login, senha) => {
+exports.insert = async (pessoa) => {
+
+
     try {
-        const { rows } = await conexao.query('INSERT INTO pessoa (login, senha) values $1, $2', [login, senha]);
+        const { rows } = await conexao.query('INSERT INTO pessoa (login, senha) values ($1, $2)', [pessoa.login, pessoa.senha]);
         return rows;
     } catch (error) {
         console.error(error);
