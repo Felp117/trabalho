@@ -6,18 +6,13 @@ app.get('/pessoa', async(req, res) => {
 });
 
 app.get('/pessoa/:id', async (req, res) => {
-    let resposta = pessoaRepository.findById(req.params.id);
+    let resposta = await pessoaRepository.findById(req.params.id);
     res.json(resposta);  
 });
 
 app.post('/pessoa', async (req, res) => {
-
-    const pessoa = {
-        nome: req.body.login,
-        senha: req.body.senha
-    };
     
-    let resposta = pessoaRepository.insert(pessoa);
+    let resposta = pessoaRepository.insert();
     res.json(resposta);
 });
 

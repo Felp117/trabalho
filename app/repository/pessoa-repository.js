@@ -6,13 +6,15 @@ exports.listAll = async () => {
 }
 
 exports.findById = async (id) => {
-    const { rows } = await conexao.query('SELECT * FROM pessoa WHERE id = $1', [id])
-    return rows;
+    try{
+        const { rows } = await conexao.query('SELECT * FROM pessoa WHERE id = $1', [id])
+        return rows[0] ?? {};
+    } catch (error) {
+        console.error(error)
+    }
 }
 
 exports.insert = async (pessoa) => {
-
-
     try {
         const { rows } = await conexao.query('INSERT INTO pessoa (login, senha) values ($1, $2)', [pessoa.login, pessoa.senha]);
         return rows;
@@ -21,18 +23,18 @@ exports.insert = async (pessoa) => {
     }
 }
 
-exports.delete = async(id) => {
+exports.update = async(pessoaUpd) => {
     try {
-        const { rows } = await conexao.query('DELETE FROM pessoa WHERE id = $1', [id]);
-        return rows;
+        const { rows } = await conexao.query('UPDATE pessoa SET login = $1 WHERE id = $2', [pessoaUpd.login, pessoaUpd.id]);
+        return rows[0] ?? {};
     } catch (error) {
         console.error(error);
     }
 }
 
-exports.update = async(nome, id) => {
+exports.delete = async(id) => {
     try {
-        const { rows } = await conexao.query('UPDATE pessoa SET login = $1 WHERE id = $2', [nome, id]);
+        const { rows } = await conexao.query('DELETE FROM pessoa WHERE id = $1', [id]);
         return rows;
     } catch (error) {
         console.error(error);

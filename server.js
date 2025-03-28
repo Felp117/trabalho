@@ -9,33 +9,57 @@ app.use(express.json({type: 'application/vnd.api+json'}));
 app.get('/pessoa', async(req, res) => {
     let resposta = await pessoaRepository.listAll();
     res.json(resposta);
-    
-});
-
-app.get('/pessoa', async(req, res) => {
-    let resposta = await pessoaRepository.listAll();
-    res.json(resposta);
 });
 
 app.get('/pessoa/:id', async (req, res) => {
-    let resposta = pessoaRepository.findById(req.params.id);
-    res.json(resposta);  
-});
-
-app.post('/pessoa', async (req, res) => {
-    let resposta = pessoaRepository.insert();
+    console.log(req.params.id)
+    let resposta = await pessoaRepository.findById(req.params.id);
+    console.log(resposta);
     res.json(resposta);
 });
 
-app.delete('/pessoa/:id', async (req, res) => {
-    let resposta = pessoaRepository.delete();
+app.post('/pessoa', async (req, res) => {
+    const pessoa = {
+        login: req.body.login,
+        senha: req.body.senha
+    };
+    let resposta = await pessoaRepository.insert(pessoa);
     res.json(resposta);
 });
 
 app.put('/pessoa/:id', async (req, res) => {
-    let resposta = pessoaRepository.update();
+
+    const pessoaUpd = {
+        id: req.body.id,
+        login: req.body.login
+    };
+    let resposta = await pessoaRepository.update(pessoaUpd);
     res.json(resposta);
 });
+
+app.delete('/pessoa/:id', async (req, res) => {
+    let resposta = await pessoaRepository.delete();
+    res.json(resposta);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 app.get('/usuario', async(req, res) => {
     let resposta = await pessoaRepository.listAll();
@@ -43,22 +67,22 @@ app.get('/usuario', async(req, res) => {
 })
 
 app.get('/usuario/:id', async (req, res) => {
-    let resposta = pessoaRepository.findById(req.params.id);
+    let resposta = await pessoaRepository.findById(req.params.id);
     res.json(resposta);  
 });
 
 app.post('/usuario', async (req, res) => {
-    let resposta = pessoaRepository.insert();
+    let resposta = await pessoaRepository.insert();
     req.json(resposta);
 })
 
 app.delete('/usuario/:id', async (req, res) => {
-    let resposta = pessoaRepository.delete(req.params.id);
+    let resposta = await pessoaRepository.delete(req.params.id);
     res.json(resposta);
 })
 
 app.put('/usuario/:id', async (req, res) => {
-    let resposta = pessoaRepository.update(req.params.id);
+    let resposta = await pessoaRepository.update(req.params.id);
     res.json(resposta);
 })
 
