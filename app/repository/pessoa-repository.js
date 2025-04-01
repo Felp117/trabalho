@@ -32,9 +32,9 @@ exports.update = async(pessoaUpd) => {
     }
 }
 
-exports.delete = async(id) => {
+exports.delete = async(pessoaDelete) => {
     try {
-        const { rows } = await conexao.query('DELETE FROM pessoa WHERE id = $1', [id]);
+        const { rows } = await conexao.query('DELETE FROM pessoa WHERE id = $1', [pessoaDelete]);
         return rows;
     } catch (error) {
         console.error(error);

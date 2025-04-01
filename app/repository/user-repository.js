@@ -11,9 +11,9 @@ exports.findById = async (id) => {
 }
 
 
-exports.insert = async (nome, email, telefone, endereco, cpf) => {
+exports.insert = async (usuarioIns) => {
     try {
-        const { rows } = await conexao.query('INSERT INTO usuario (nome, email, telefone, endereco, cpf) values $1, $2, $3, $4, $5', [nome, email, telefone, endereco, cpf]);
+        const { rows } = await conexao.query('INSERT INTO usuario (nome, email, telefone, cpf) values ($1, $2, $3, $4)', [usuarioIns.nome, usuarioIns.email, usuarioIns.telefone, usuarioIns.cpf]);
         return rows;
     } catch (error) {
         console.error(error);
@@ -29,12 +29,11 @@ exports.delete = async(id) => {
     }
 }
 
-exports.update = async(nome, id) => {
+exports.update = async(usuarioUpd) => {
     try {
-        const { rows } = await conexao.query('UPDATE usuario SET login = $1 WHERE id = $2', [nome, id]);
+        const { rows } = await conexao.query('UPDATE usuario SET nome = $1, email = $2, telefone = $3, cpf = $4  WHERE id =$5 ', [usuarioUpd.nome, usuarioUpd.email, usuarioUpd.telefone, usuarioUpd.cpf, usuarioUpd.id]);
         return rows;
     } catch (error) {
         console.error(error);
     }
 }
-

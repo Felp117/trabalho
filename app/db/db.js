@@ -9,26 +9,25 @@ const conexao = new Pool({
 });
 
 conexao.connect()
- .then(() => {
-    console.log("Conectado ao PostgreSQL!");
-    inicializarBanco();
- })
- .catch(err => console.error("Error de conexão: ", err));
+    .then(() => {
+        console.log("Conectado ao PostgreSQL!");
+        inicializarBanco();
+    })
+    .catch(err => console.error("Error de conexão: ", err));
 
 function inicializarBanco() {
     const querires = [
         `CREATE TABLE IF NOT EXISTS usuario (
-        id SERIAL PRIMARY KEY,
-        nome TEXT NOT NULL,
-        email TEXT NOT NULL,
-        telefone TEXT NOT NULL,
-        endereco TEXT NOT NULL,
-        cpf NUMERIC NOT NULL
+            id SERIAL PRIMARY KEY,
+            nome TEXT,
+            email TEXT,
+            telefone TEXT,
+            cpf NUMERIC NOT NULL
         )`,
         `CREATE TABLE IF NOT EXISTS pessoa(
-        id SERIAL PRIMARY KEY,
-        login TEXT NOT NULL,
-        senha TEXT NOT NULL 
+            id SERIAL PRIMARY KEY,
+            nome TEXT,
+            sobrenome TEXT
         )`,
         `TRUNCATE TABLE pessoa`,
         `TRUNCATE TABLE usuario`
@@ -45,4 +44,4 @@ function inicializarBanco() {
     });
 }
 
-module.exports = {conexao}
+module.exports = { conexao }
