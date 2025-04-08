@@ -1,21 +1,27 @@
-const express = require("express");
-const cors = require("cors");
+const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const { initializeDatabase } = require('./db/db');
+const userRoutes = require('./routes/userRoutes');
+const personRoutes = require('./routes/personRoutes');
 const path = require('path');
-const userRoutes = require("./routes/userRoutes");
-const personRoutes = require("./routes/personRoutes");
 
 const app = express();
 
 app.use(cors());
-app.use(express.json());
+app.use(bodyParser.json());
+app.use('/api', userRoutes);
+app.use('/api', personRoutes);
+
+app.use(express.static(path.join(__dirname, 'public'))); 
+
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, 'public', 'index.html')); 
 });
 
-app.use("/api/users", userRoutes);
-app.use("/api/person", personRoutes);
+initializeDatabase();
 
 app.listen(3000, () => {
-  console.log("Server running on port 3000");
+  console.log('Server running on port 3000');
 });

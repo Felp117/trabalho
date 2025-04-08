@@ -1,36 +1,43 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Usuários e Pessoas</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro de Usuários e Pessoas</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Cadastro de Usuários e Pessoas</h1>
+  <div class="container">
+    <h1>Cadastro de Usuários e Pessoas</h1>
 
-        <h2>Cadastrar Usuário</h2>
-        <form id="user-form">
-            <input type="text" id="user-name" placeholder="Nome" required />
-            <input type="email" id="user-email" placeholder="Email" required />
-            <button type="submit">Adicionar Usuário</button>
-        </form>
-
-        <h2>Cadastrar Pessoa</h2>
-        <form id="person-form">
-            <input type="text" id="person-name" placeholder="Nome" required />
-            <input type="number" id="person-age" placeholder="Idade" required />
-            <button type="submit">Adicionar Pessoa</button>
-        </form>
-
-        <h2>Lista de Usuários</h2>
-        <ul id="user-list"></ul>
-
-        <h2>Lista de Pessoas</h2>
-        <ul id="people-list"></ul>
+    <div>
+      <h2>Inserir Usuário</h2>
+      <form id="user-form">
+        <input type="text" id="user-name" placeholder="Nome do Usuário" required>
+        <input type="email" id="user-email" placeholder="Email do Usuário" required>
+        <button type="submit">Adicionar Usuário</button>
+      </form>
     </div>
 
-    <script src="script.js"></script>
+    <div>
+      <h2>Inserir Pessoa</h2>
+      <form id="person-form">
+        <input type="text" id="person-name" placeholder="Nome da Pessoa" required>
+        <input type="number" id="person-age" placeholder="Idade da Pessoa" required>
+        <button type="submit">Adicionar Pessoa</button>
+      </form>
+    </div>
+
+    <div id="user-list">
+      <h2>Usuários Cadastrados</h2>
+      <ul id="users"></ul>
+    </div>
+
+    <div id="person-list">
+      <h2>Pessoas Cadastradas</h2>
+      <ul id="people"></ul>
+    </div>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
