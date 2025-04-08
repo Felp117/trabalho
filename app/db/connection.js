@@ -17,20 +17,18 @@ conexao.connect()
 
 function inicializarBanco() {
     const querires = [
-        `CREATE TABLE IF NOT EXISTS usuario (
-            id SERIAL PRIMARY KEY,
-            nome TEXT,
-            email TEXT,
-            telefone TEXT,
-            cpf NUMERIC NOT NULL
-        )`,
-        `CREATE TABLE IF NOT EXISTS pessoa(
-            id SERIAL PRIMARY KEY,
-            nome TEXT,
-            sobrenome TEXT
-        )`,
-        `TRUNCATE TABLE pessoa`,
-        `TRUNCATE TABLE usuario`
+        `CREATE TABLE IF NOT EXISTS "user" (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(100) NOT NULL,
+        email VARCHAR(100) UNIQUE NOT NULL
+    )`,
+    `CREATE TABLE IF NOT EXISTS "pessoa" (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(100) NOT NULL,
+        age INT NOT NULL
+    )`,
+    `TRUNCATE TABLE "pessoa"`,
+    `TRUNCATE TABLE "user"`
     ];
 
     querires.forEach(query => {
@@ -44,4 +42,4 @@ function inicializarBanco() {
     });
 }
 
-module.exports = { conexao }
+module.exports = { conexao, inicializarBanco }
