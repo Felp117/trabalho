@@ -1,78 +1,47 @@
-const apiUrl = 'http://localhost:3000';
+document.addEventListener("DOMContentLoaded", () => {
+  // Carregar e exibir os usuários e pessoas
+  fetchUsers();
+  fetchPeople();
+});
 
 async function fetchUsers() {
-  const response = await fetch(`${apiUrl}/api/users`);
-  const users = await response.json();
-  const usersTable = document.getElementById('usersTable').getElementsByTagName('tbody')[0];
-  usersTable.innerHTML = '';
+  try {
+      const response = await fetch('http://localhost:3000/usuarios/all');
+      const users = await response.json();
+      displayUsers(users);
+  } catch (error) {
+      console.error("Erro ao buscar usuários:", error);
+  }
+}
+
+async function fetchPeople() {
+  try {
+      const response = await fetch('http://localhost:3000/pessoas/all');
+      const people = await response.json();
+      displayPeople(people);
+  } catch (error) {
+      console.error("Erro ao buscar pessoas:", error);
+  }
+}
+
+function displayUsers(users) {
+  const usersList = document.getElementById("user-list");
+  usersList.innerHTML = ''; // Limpa a lista antes de adicionar os novos usuários
+
   users.forEach(user => {
-    const row = usersTable.insertRow();
-    row.innerHTML = `
-      <td>${user.id}</td>
-      <td>${user.name}</td>
-      <td>${user.email}</td>
-      <td>
-        <button onclick="editUser(${user.id})">Edit</button>
-        <button class="delete" onclick="deleteUser(${user.id})">Delete</button>
-      </td>
-    `;
+      const li = document.createElement("li");
+      li.textContent = `Nome: ${user.name}, Email: ${user.email}`;
+      usersList.appendChild(li);
   });
 }
 
-async function fetchPersons() {
-  const response = await fetch(`${apiUrl}/api/persons`);
-  const persons = await response.json();
-  const personsTable = document.getElementById('personsTable').getElementsByTagName('tbody')[0];
-  personsTable.innerHTML = '';
-  persons.forEach(person => {
-    const row = personsTable.insertRow();
-    row.innerHTML = `
-      <td>${person.id}</td>
-      <td>${person.name}</td>
-      <td>${person.age}</td>
-      <td>
-        <button onclick="editPerson(${person.id})">Edit</button>
-        <button class="delete" onclick="deletePerson(${person.id})">Delete</button>
-      </td>
-    `;
+function displayPeople(people) {
+  const peopleList = document.getElementById("people-list");
+  peopleList.innerHTML = ''; // Limpa a lista antes de adicionar as novas pessoas
+
+  people.forEach(person => {
+      const li = document.createElement("li");
+      li.textContent = `Nome: ${person.name}, Idade: ${person.age}`;
+      peopleList.appendChild(li);
   });
 }
-
-document.getElementById('userForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const name = document.getElementById('userName').value;
-  const email = document.getElementById('userEmail').value;
-  await fetch(`${apiUrl}/api/users`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name, email })
-  });
-  fetchUsers();
-});
-
-document.getElementById('personForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const name = document.getElementById('personName').value;
-  const age = document.getElementById('personAge').value;
-  await fetch(`${apiUrl}/api/persons`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name, age })
-  });
-  fetchPersons();
-});
-
-async function deleteUser(id) {
-  await fetch(`${apiUrl}/api/users/${id}`, { method: 'DELETE' });
-  fetchUsers(); // Refresh user list
-}
-
-async function deletePerson(id) {
-  await fetch(`${apiUrl}/api/persons/${id}`, { method: 'DELETE' });
-  fetchPersons(); // Refresh person list
-}
-
-window.onload = () => {
-  fetchUsers();
-  fetchPersons();
-};

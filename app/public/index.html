@@ -3,35 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Pessoas</title>
+    <title>Usuários e Pessoas</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>Cadastro de Pessoas</h1>
-        </header>
+        <h1>Cadastro de Usuários e Pessoas</h1>
 
-        <div class="form-container">
-            <form id="person-form">
-                <div class="input-group">
-                    <label for="name">Nome:</label>
-                    <input type="text" id="name" name="name" required placeholder="Digite o nome">
-                </div>
-                <div class="input-group">
-                    <label for="age">Idade:</label>
-                    <input type="number" id="age" name="age" required placeholder="Digite a idade">
-                </div>
-                <button type="submit" class="btn">Cadastrar Pessoa</button>
-            </form>
-        </div>
+        <h2>Cadastrar Usuário</h2>
+        <form id="user-form">
+            <input type="text" id="user-name" placeholder="Nome" required />
+            <input type="email" id="user-email" placeholder="Email" required />
+            <button type="submit">Adicionar Usuário</button>
+        </form>
 
-        <div class="list-container">
-            <h2>Pessoas Cadastradas</h2>
-            <ul id="people-list">
-                <!-- As pessoas serão listadas aqui -->
-            </ul>
-        </div>
+        <h2>Cadastrar Pessoa</h2>
+        <form id="person-form">
+            <input type="text" id="person-name" placeholder="Nome" required />
+            <input type="number" id="person-age" placeholder="Idade" required />
+            <button type="submit">Adicionar Pessoa</button>
+        </form>
+
+        <h2>Lista de Usuários</h2>
+        <ul id="user-list"></ul>
+
+        <h2>Lista de Pessoas</h2>
+        <ul id="people-list"></ul>
     </div>
 
     <script src="script.js"></script>

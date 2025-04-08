@@ -1,4 +1,4 @@
-const pool = require('../db/connection');
+const pool = require('../db/db');
 
 const createUser = async (name, email) => {
   const query = 'INSERT INTO user(name, email) VALUES($1, $2) RETURNING *';
