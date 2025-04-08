@@ -139,39 +139,39 @@ async function editPerson(id) {
   const name = prompt("Digite o novo nome:");
   const age = prompt("Digite a nova idade:");
 
-  // Verifica se os dados estão completos
+  // Verifica se o nome e idade foram fornecidos
   if (!name || !age) {
-    alert('Nome e Idade são obrigatórios!');
+    alert('Nome e idade são obrigatórios!');
     return;
   }
 
-  const response = await fetch(`/api/people/${id}`, {
+  const response = await fetch(`http://localhost:3000/api/persons/${id}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ name, age })
+    body: JSON.stringify({ name, age }),
   });
 
   const data = await response.json();
 
   if (response.ok) {
     alert('Pessoa atualizada com sucesso!');
-    loadPeople();  // Recarrega a lista de pessoas
+    loadPeople(); // Recarrega a lista de pessoas
   } else {
-    alert('Erro ao atualizar pessoa');
+    alert('Erro ao atualizar pessoa: ' + data.error);
   }
 }
-
 // Função para deletar uma pessoa
 async function deletePerson(id) {
+  console.log("Deletando pessoa com ID: ", id);
   const confirmDelete = confirm("Tem certeza que deseja excluir esta pessoa?");
   
   if (!confirmDelete) {
-    return;  // Se o usuário cancelar, nada acontece
+    return;
   }
 
-  const response = await fetch(`/api/people/${id}`, {
+  const response = await fetch(`http://localhost:3000/api/persons/${id}`, {
     method: 'DELETE',
   });
 
@@ -181,6 +181,6 @@ async function deletePerson(id) {
     alert('Pessoa excluída com sucesso!');
     loadPeople();  // Recarrega a lista de pessoas
   } else {
-    alert('Erro ao excluir pessoa');
+    alert('Erro ao excluir pessoa: ' + data.error);
   }
 }
